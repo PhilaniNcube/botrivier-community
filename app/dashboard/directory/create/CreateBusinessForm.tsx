@@ -86,25 +86,15 @@ const CreateBusinessForm = ({business_types}:Props) => {
            }))
          );
 
-      // const res = await fetch(`${url}/api/directory`, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   },
-      //   body: JSON.stringify({
-      //     business_name: values.business_name,
-      //     first_name: values.first_name,
-      //     last_name: values.last_name,
-      //     email: values.email,
-      //     website: values.website,
-      //     phone_number: values.phone_number,
-      //     business_types: values.business_types,
-      //   })
-      // }).then((res) => res.json()).catch((err) => console.error(err))
 
-      // const result = await res
+      if (error) {
+        alert("There was an error creating your business. Please try again.")
+        setLoading(false)
+        return
+      }
 
-      // console.log({result})
+
+      console.log({ businessType });
       setLoading(false)
       router.push("/dashboard/directory")
 

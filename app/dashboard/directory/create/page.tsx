@@ -1,9 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { Database } from "@/schema";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { PlusIcon } from "lucide-react";
-import { cookies } from "next/headers";
-import Link from "next/link";
 import CreateBusinessForm from "./CreateBusinessForm";
 import { getBusinessTypes } from "@/lib/fetchers/directory";
 
