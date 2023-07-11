@@ -14,21 +14,21 @@ const requestSchema = z.object({
   business_types: z.array(z.string()),
 });
 
-export async function GET(req:Request) {
-  const supabase = createRouteHandlerClient<Database>({cookies})
+// export async function GET(req:Request) {
+//   const supabase = createRouteHandlerClient<Database>({cookies})
 
-  const {data, error} = await supabase.from("directory").select("*").order("business_name", {ascending: true});
+//   const {data, error} = await supabase.from("directory").select("*").order("business_name", {ascending: true});
 
-  if (error) {
-    return NextResponse.json({error: error.message, status: error.code}, {
-      status: 400,
-    });
-  }
+//   if (error) {
+//     return NextResponse.json({error: error.message, status: error.code}, {
+//       status: 400,
+//     });
+//   }
 
-  return NextResponse.json(data, {
-    status: 200,
-  })
-}
+//   return NextResponse.json(data, {
+//     status: 200,
+//   })
+// }
 
 
 export async function POST(request:Request) {

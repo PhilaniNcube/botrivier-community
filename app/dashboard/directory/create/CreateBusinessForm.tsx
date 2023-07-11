@@ -53,8 +53,7 @@ const CreateBusinessForm = ({business_types}:Props) => {
   });
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-      // Do something with the form values.
-      // ✅ This will be type-safe and validated.
+
       setLoading(true)
 
       const url = process.env.NEXT_PUBLIC_SITE_URL
