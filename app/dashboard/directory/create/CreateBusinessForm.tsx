@@ -17,6 +17,7 @@ import { Database } from "@/schema";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 type Props = {
   business_types: Database['public']['Tables']['business_type']['Row'][]
@@ -33,6 +34,8 @@ const formSchema = z.object({
 });
 
 const CreateBusinessForm = ({business_types}:Props) => {
+
+  const supabase = createClientComponentClient<Database>();
 
   const router = useRouter()
 
@@ -59,25 +62,49 @@ const CreateBusinessForm = ({business_types}:Props) => {
       const url = process.env.NEXT_PUBLIC_SITE_URL
       console.log(values);
 
-      const res = await fetch(`${url}/api/directory`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          business_name: values.business_name,
-          first_name: values.first_name,
-          last_name: values.last_name,
-          email: values.email,
-          website: values.website,
-          phone_number: values.phone_number,
-          business_types: values.business_types,
-        })
-      }).then((res) => res.json()).catch((err) => console.error(err))
+      const {data:business, error: businessError} = await supabase.from("directory").insert([{
+        business_name: values.business_name,
+        first_name: values.first_name,
+        last_name: values.last_name,
+        email: values.email,
+        website: values.website,
+        phone_number: values.phone_number,
+      }]).select("*").single()
 
-      const result = await res
+       if (businessError) {
+        alert("There was an error creating your business. Please try again.")
+        setLoading(false)
+        return
+       }
 
-      console.log({result})
+       const { data: businessType, error } = await supabase
+         .from("business_directory")
+         .insert(
+           values.business_types.map((business_type) => ({
+             business_type: business_type,
+             directory_id: business?.id,
+           }))
+         );
+
+      // const res = await fetch(`${url}/api/directory`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify({
+      //     business_name: values.business_name,
+      //     first_name: values.first_name,
+      //     last_name: values.last_name,
+      //     email: values.email,
+      //     website: values.website,
+      //     phone_number: values.phone_number,
+      //     business_types: values.business_types,
+      //   })
+      // }).then((res) => res.json()).catch((err) => console.error(err))
+
+      // const result = await res
+
+      // console.log({result})
       setLoading(false)
       router.push("/dashboard/directory")
 
