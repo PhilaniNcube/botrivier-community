@@ -1,12 +1,20 @@
 import { Button } from "@/components/ui/button";
-import { getProjects } from "@/lib/fetchers/projects";
+// import { getProjects } from "@/lib/fetchers/projects";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 import ProjectCard from "./ProjectCard";
+import { Database } from "@/schema";
+import { cookies } from "next/headers";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const page = async () => {
 
-  const projects = await getProjects()
+   const supabase = createServerComponentClient<Database>({ cookies });
+
+   const { data, error } = await supabase
+     .from("projects")
+     .select("*")
+     .order("title", { ascending: true });
 
   return (
     <div className="w-full">
@@ -24,7 +32,7 @@ const page = async () => {
         </Link>
       </div>
       <div className="mt-6 w-full">
-        {projects.map((project) => (
+        {data?.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
       </div>
