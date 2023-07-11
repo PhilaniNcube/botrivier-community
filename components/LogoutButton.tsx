@@ -2,12 +2,14 @@
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from 'next/navigation'
+import { Button } from './ui/button'
+import { Database } from '@/schema'
 
 export default function LogoutButton() {
   const router = useRouter()
 
   // Create a Supabase client configured to use cookies
-  const supabase = createClientComponentClient()
+  const supabase = createClientComponentClient<Database>()
 
   const signOut = async () => {
     await supabase.auth.signOut()
@@ -15,11 +17,12 @@ export default function LogoutButton() {
   }
 
   return (
-    <button
-      className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
+    <Button
+      variant="destructive"
+      className=""
       onClick={signOut}
     >
       Logout
-    </button>
+    </Button>
   )
 }
