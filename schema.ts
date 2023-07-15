@@ -101,6 +101,26 @@ export interface Database {
           phone_number?: string
         }
       }
+      documents : {
+        Row: {
+          id: string
+          created_at: string
+          title: string
+          src:string
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          title: string
+          src:string
+        }
+        Update: {
+          id: string
+          created_at?: string
+          title?: string
+          src?:string
+        }
+      }
       events: {
         Row: {
           id: string
