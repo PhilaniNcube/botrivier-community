@@ -1,12 +1,21 @@
-import { getProjects } from "@/lib/fetchers/projects";
 import ProjectCard from "../dashboard/projects/ProjectCard";
+import { cookies } from "next/headers";
+import { Database } from "@/schema";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const page = async () => {
 
-  const projects = await getProjects();
+      const supabase = createServerComponentClient<Database>({ cookies });
+
+      const { data:projects, error } = await supabase
+        .from("projects")
+        .select("*")
+        .order("title", { ascending: true });
+
+
 
   return <main className="py-10 container">
-    {projects.map((project) => (
+    {projects?.map((project) => (
       <ProjectCard key={project.id} project={project} />
     ))}
   </main>;
