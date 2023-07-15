@@ -1,4 +1,4 @@
 const page = async () => {
-  return <div>page</div>;
+  return <div>Events</div>;
 };
 export default page;
