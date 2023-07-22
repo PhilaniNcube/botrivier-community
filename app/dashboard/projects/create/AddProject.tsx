@@ -90,7 +90,7 @@ const AddProject = () => {
              }
 
              const url =
-               "https://hgacolkudbpybkhyklvf.supabase.co/storage/v1/object/public/uploads/";
+               "https://hgacolkudbpybkhyklvf.supabase.co/storage/v1/object/public/projects/";
 
              setImages((images) => [...images, `${url}${data.path}`]);
              alert("Upload successful");
