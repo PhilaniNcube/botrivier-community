@@ -51,7 +51,7 @@ const WhoIsBCV = async () => {
             width={1166}
             height={813}
             alt="Directors"
-            className="w-full object-cover aspect-video"
+            className="w-full object-cover"
           />
         </div>
       </div>
