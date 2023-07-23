@@ -7,7 +7,11 @@ type Props = {
 const DirectoryGrid = ({directory}:Props) => {
   return (
     <div className="w-full mt-8">
+
+       {directory.length === 0 && <p className="text-lg text-stone-600">No results found</p>}
+
       <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+
         {directory.map((item) => (
           <article
             key={item.id}

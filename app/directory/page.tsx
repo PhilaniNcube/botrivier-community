@@ -12,7 +12,7 @@ const page = async ({searchParams:{query = ''}}:{searchParams: {query:string}}) 
 
   console.log(query)
 
- const directory = await getDirectory()
+ const directory = await getDirectory(query);
 
 
   return (
