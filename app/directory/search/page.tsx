@@ -1,7 +1,8 @@
 import { getDirectory } from "@/lib/fetchers/directory";
-import { Separator } from "@radix-ui/react-separator";
+
 import { Search } from "lucide-react";
 import DirectoryGrid from "../DirectoryGrid";
+import { Separator } from "@/components/ui/separator";
 
 const page = async ({
   searchParams: { query = "" },
