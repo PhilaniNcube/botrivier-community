@@ -89,14 +89,14 @@ export const columns: ColumnDef<Database["public"]["Tables"]["directory"]["Row"]
     accessorKey: "website",
     header: "Website",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("website")}</div>
+      <div className="lowercase">{row.getValue("website")}</div>
     ),
   },
   {
     accessorKey: "phone_number",
     header: "Phone Number",
     cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("phone_number")}</div>
+      <div className="lowercase">{row.getValue("phone_number")}</div>
     ),
   },
   {
