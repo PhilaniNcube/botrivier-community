@@ -20,8 +20,6 @@ const DirectoryGrid = async ({directory}:Props) => {
 
           const business_types = await getBusinessTypesByBusinessID(item.id);
 
-          console.log(business_types);
-
           return (
             <article
               key={item.id}
@@ -33,7 +31,9 @@ const DirectoryGrid = async ({directory}:Props) => {
               </p>
               {item.email && <p className="text-sm">Email: {item.email}</p>}
               {item.website && (
-                <p className="text-sm">Website: {item.website}</p>
+                <p className="text-sm ">
+                  Website: <span className="lowercase">{item.website}</span>
+                </p>
               )}
               {item.phone_number && (
                 <p className="text-sm">
@@ -43,7 +43,9 @@ const DirectoryGrid = async ({directory}:Props) => {
               )}
               <div className="mt-4 flex items-center space-x-3">
                 {business_types.map((type, index) => (
-                  <Badge key={index} className="text-white text-xs font-normal">{type.business_type.title}</Badge>
+                  <Badge key={index} className="text-white text-xs font-normal">
+                    {type.business_type.title}
+                  </Badge>
                 ))}
               </div>
             </article>
