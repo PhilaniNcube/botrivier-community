@@ -22,6 +22,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 type Props = {
   types: Database["public"]["Tables"]["business_directory"]["Row"][];
   business: Database["public"]["Tables"]["directory"]["Row"];
+  business_types: Database["public"]["Tables"]["business_type"]["Row"][];
 };
 
 const formSchema = z.object({
@@ -34,7 +35,7 @@ const formSchema = z.object({
   business_types: z.array(z.string()),
 });
 
-const UpdateBusiness = ({ types, business }: Props) => {
+const UpdateBusiness = ({ types, business, business_types }: Props) => {
   const supabase = createClientComponentClient<Database>();
 
   const router = useRouter();
@@ -207,39 +208,39 @@ const UpdateBusiness = ({ types, business }: Props) => {
                   </div>
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     {" "}
-                    {types.map((item) => (
+                    {business_types?.map((item) => (
                       <FormField
-                        key={item.business_type.id}
+                        key={item.id}
                         control={form.control}
                         name="business_types"
                         render={({ field }) => {
                           return (
                             <FormItem
-                              key={item.business_type.id}
+                              key={item.id}
                               className="flex flex-row items-start space-x-3 space-y-0"
                             >
                               <FormControl>
                                 <Checkbox
                                   checked={field.value?.includes(
-                                    item.business_type.id
+                                    item.id
                                   )}
                                   onCheckedChange={(checked) => {
                                     return checked
                                       ? field.onChange([
                                           ...field.value,
-                                          item.business_type.id,
+                                          item.id,
                                         ])
                                       : field.onChange(
                                           field.value?.filter(
                                             (value) =>
-                                              value !== item.business_type.id
+                                              value !== item.id
                                           )
                                         );
                                   }}
                                 />
                               </FormControl>
                               <FormLabel className="font-normal">
-                                {item.business_type.title}
+                                {item.title}
                               </FormLabel>
                             </FormItem>
                           );
