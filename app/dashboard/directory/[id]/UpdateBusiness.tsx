@@ -83,7 +83,7 @@ const UpdateBusiness = ({ types, business, business_types }: Props) => {
 
     const { data: businessType, error } = await supabase
       .from("business_directory")
-      .insert(
+      .upsert(
         values.business_types.map((business_type) => ({
           business_type: business_type,
           directory_id: business?.id,
