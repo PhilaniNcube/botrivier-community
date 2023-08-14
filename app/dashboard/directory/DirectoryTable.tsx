@@ -13,7 +13,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, ChevronDown, Link2Icon, MoreHorizontal } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -36,6 +36,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Database } from "@/schema";
+import Link from "next/link";
 
 type Props = {
   directory: Database["public"]["Tables"]["directory"]["Row"][];
@@ -56,7 +57,11 @@ export const columns: ColumnDef<Database["public"]["Tables"]["directory"]["Row"]
         </Button>
       );
     },
-    cell: ({ row }) => <div className="font-medium text-slate-700">{row.getValue("business_name")}</div>,
+    cell: ({ row }) => (
+      <div className="font-medium text-slate-700">
+        {row.getValue("business_name")}
+      </div>
+    ),
   },
 
   {
@@ -92,6 +97,18 @@ export const columns: ColumnDef<Database["public"]["Tables"]["directory"]["Row"]
     header: "Phone Number",
     cell: ({ row }) => (
       <div className="capitalize">{row.getValue("phone_number")}</div>
+    ),
+  },
+  {
+    accessorKey: "id",
+    header: "Link",
+    cell: ({ row }) => (
+      <Link
+        href={`/dashboard/directory/${row.getValue("id")}`}
+        className="capitalize"
+      >
+        <Link2Icon />
+      </Link>
     ),
   },
 ];

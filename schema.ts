@@ -91,7 +91,7 @@ export interface Database {
           phone_number?: string
         }
         Update: {
-          id: string
+          id?: string
           created_at?: string
           business_name?: string
           first_name?: string

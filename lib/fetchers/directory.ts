@@ -46,3 +46,24 @@ export const getBusinessTypesByBusinessID = async (businessId:string) => {
 
   return data
 }
+
+
+export const getBusiness = async (businessId:string) => {
+
+   const supabase = createServerComponentClient<Database>({ cookies })
+
+  const {data:business, error:businessError} = await supabase.from("directory").select("*").eq('id', businessId).single()
+
+  const {data:types, error:errorTypes} = await supabase.from("business_directory").select("*, business_type(*)").eq('directory_id', businessId)
+
+
+
+  if (businessError || errorTypes) {
+    throw new Error(`${businessError?.message} ${errorTypes?.message}`)
+  }
+
+  return {
+    business,
+    types
+  }
+}
