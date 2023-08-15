@@ -10,7 +10,7 @@ const page = async ({params: {id}}:{params:{id:string}}) => {
   return (
     <div className="w-full">
       <h1 className="text-2xl font-medium">
-        Create a new business directory entry
+        Edit
       </h1>
       <UpdateBusiness types={types} business={business} business_types={business_types} />
     </div>
