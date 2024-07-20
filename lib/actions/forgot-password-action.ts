@@ -8,7 +8,7 @@ export async function forgotPasswordAction(formData:FormData) {
   const email = formData.get("email") as string;
 
   if(!email) {
-    redirect("/error");
+    redirect("/error?error=Email is required");
   }
 
   const supabase = createClient();
@@ -16,6 +16,6 @@ export async function forgotPasswordAction(formData:FormData) {
   const { error } = await supabase.auth.resetPasswordForEmail(email);
 
   if (error) {
-    redirect("error");
+    redirect(`error?error=${error.message}`);
   }
 }

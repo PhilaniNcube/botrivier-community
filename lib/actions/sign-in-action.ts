@@ -15,6 +15,8 @@ export async function signInAction(formData:FormData) {
 			password,
 		});
 
+    console.log({user, error});
+
     if (error || !user ) {
      redirect("/error");
     }

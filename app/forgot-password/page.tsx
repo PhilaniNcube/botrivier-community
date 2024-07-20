@@ -52,7 +52,7 @@ export default function Component() {
 				</form>
 			</CardContent>
 			<CardFooter>
-				<Link href="#" className="text-sm underline" prefetch={false}>
+				<Link href="/login" className="text-sm underline" prefetch={false}>
 					Back to login
 				</Link>
 			</CardFooter>
