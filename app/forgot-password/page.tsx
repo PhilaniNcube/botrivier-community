@@ -1,3 +1,4 @@
+"use client";
 
 import {
 	Card,
@@ -12,8 +13,12 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { forgotPasswordAction } from "@/lib/actions/forgot-password-action";
+import { useTransition } from "react";
 
 export default function Component() {
+
+  const [pending, startTransition] = useTransition();
+
 	return (
 		<Card className="max-w-md mx-auto mt-[100px] lg:mt-[200px]">
 			<CardHeader>
@@ -24,13 +29,25 @@ export default function Component() {
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
-				<form action={forgotPasswordAction} className="grid gap-4">
+				<form
+					action={(formData) => {
+						startTransition(() => {
+							forgotPasswordAction(formData);
+						});
+					}}
+					className="grid gap-4"
+				>
 					<div className="grid gap-2">
 						<Label htmlFor="email">Email</Label>
-						<Input id="email" type="email" name="email" placeholder="m@example.com" />
+						<Input
+							id="email"
+							type="email"
+							name="email"
+							placeholder="m@example.com"
+						/>
 					</div>
 					<Button type="submit" className="bg-green-600">
-						Reset password
+						{pending ? "Loading..." : "Reset password"}
 					</Button>
 				</form>
 			</CardContent>
