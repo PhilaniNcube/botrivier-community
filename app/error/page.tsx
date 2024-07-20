@@ -1,6 +1,13 @@
+"use client";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 export default function ErrorPage() {
+
+  const searchParams = useSearchParams();
+
+  const errorMessage = searchParams.get("error") || "We're sorry, but an unexpected error has occurred. Please try again later or contact support if the issue persists.";
+
 return (
 	<div className="flex min-h-[100dvh] flex-col items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
 		<div className="max-w-md mx-auto text-center">
@@ -9,8 +16,7 @@ return (
 				Oops, something went wrong!
 			</h1>
 			<p className="mt-4 text-muted-foreground">
-				We're sorry, but an unexpected error has occurred. Please try again
-				later or contact support if the issue persists.
+{errorMessage}
 			</p>
 			<div className="mt-6">
 				<Link
