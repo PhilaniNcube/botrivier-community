@@ -6,15 +6,14 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
+
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import type { Database } from "@/schema";
-import { Checkbox } from "@/components/ui/checkbox";
+
 import { useRouter } from "next/navigation";
 import { type ChangeEvent, useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -24,8 +23,8 @@ import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import slugify from "slugify";
+import { createClient } from "@/utils/supabase/client";
 
 const formSchema = z.object({
   title: z.string().min(2).max(50),
@@ -38,9 +37,9 @@ const formSchema = z.object({
 
 const AddProject = () => {
 
-  const supabase = createClientComponentClient<Database>();
+  const supabase = createClient();
 
-    const router = useRouter();
+
 
     const [loading, setLoading] = useState(false);
 

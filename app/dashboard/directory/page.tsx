@@ -1,9 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { getDirectory } from "@/lib/fetchers/directory";
-import { Database } from "@/schema";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { PlusIcon } from "lucide-react";
-import { cookies } from "next/headers";
 import Link from "next/link";
 import DirectoryTable from "./DirectoryTable";
 

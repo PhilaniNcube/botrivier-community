@@ -13,11 +13,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Database } from "@/schema";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import type { Database } from "@/schema";
+import { createClient } from "@/utils/supabase/server";
+
 
 type Props = {
   business_types: Database['public']['Tables']['business_type']['Row'][]
@@ -35,7 +37,7 @@ const formSchema = z.object({
 
 const CreateBusinessForm = ({business_types}:Props) => {
 
-  const supabase = createClientComponentClient<Database>();
+  const supabase = createClient();
 
   const router = useRouter()
 
@@ -104,7 +106,7 @@ const CreateBusinessForm = ({business_types}:Props) => {
     <div className="w-full">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-xl">
-          <div className="w-full grid grid-cols-2 gap-3">
+          <div className="grid w-full grid-cols-2 gap-3">
             <FormField
               control={form.control}
               name="business_name"
@@ -134,7 +136,7 @@ const CreateBusinessForm = ({business_types}:Props) => {
               )}
             />
           </div>
-          <div className="w-full grid grid-cols-2 gap-3 mt-4">
+          <div className="grid w-full grid-cols-2 gap-3 mt-4">
             <FormField
               control={form.control}
               name="first_name"
@@ -164,7 +166,7 @@ const CreateBusinessForm = ({business_types}:Props) => {
               )}
             />
           </div>
-          <div className="w-full grid grid-cols-2 gap-3 mt-4">
+          <div className="grid w-full grid-cols-2 gap-3 mt-4">
             <FormField
               control={form.control}
               name="email"
@@ -205,7 +207,7 @@ const CreateBusinessForm = ({business_types}:Props) => {
                     <FormLabel className="text-base">Business Type</FormLabel>
                     <FormDescription>Select the business types</FormDescription>
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
                     {" "}
                     {business_types.map((item) => (
                       <FormField

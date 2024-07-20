@@ -1,10 +1,8 @@
 "use client"
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Database } from "@/schema";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import {useRouter} from "next/navigation"
-import { FormEvent } from "react";
+import type { FormEvent } from "react";
 
 const Search = () => {
 
@@ -25,7 +23,7 @@ const Search = () => {
 
 
   return (
-    <form onSubmit={search} className="flex space-x-4 items-center">
+    <form onSubmit={search} className="flex items-center space-x-4">
       <Input
         name="search"
         id="search"

@@ -1,16 +1,17 @@
-import ComingSoon from "@/components/ComingSoon";
+
 import { Button } from "@/components/ui/button";
-import type { Database } from "@/schema";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+
+import { createClient } from "@/utils/supabase/server";
+
 import { DownloadIcon } from "lucide-react";
-import { cookies } from "next/headers";
+
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
 
 const page = async () => {
 
-   const supabase = createServerComponentClient<Database>({ cookies });
+   const supabase = createClient()
 
   const { data: documents, error } = await supabase
     .from("documents")

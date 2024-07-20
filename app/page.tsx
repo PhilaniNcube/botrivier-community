@@ -1,33 +1,29 @@
 
-import {cookies} from 'next/headers'
 import Link from 'next/link'
 import Image from 'next/image'
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs'
+
 import { Button } from '@/components/ui/button'
 
 
-export default async function Index() {
-  const supabase = createServerComponentClient({ cookies })
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+export default async function Index() {
+
 
   return (
-    <main className="py-10 container">
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <main className="container py-10">
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <Image
           src="/images/map.jpg"
           width={397}
           height={270}
           alt="Map"
-          className="w-full object-cover "
+          className="object-cover w-full "
         />
-        <div className="w-full flex flex-col items-center justify-center">
-          <h1 className="text-gray-900 font-bold text-2xl lg:text-3xl text-center">
+        <div className="flex flex-col items-center justify-center w-full">
+          <h1 className="text-2xl font-bold text-center text-gray-900 lg:text-3xl">
             Welcome To Botrivier Community Volunteers NPC
           </h1>
-          <p className="text-md text-center mt-4 text-slate-700">
+          <p className="mt-4 text-center text-md text-slate-700">
             BCV is a non-political group of Botrivier residents working to
             improve communication in our beautiful rural town. This website is
             an initiative to create a business hub.
@@ -38,7 +34,7 @@ export default async function Index() {
           width={397}
           height={270}
           alt="Map"
-          className="w-full object-cover "
+          className="object-cover w-full "
         />
       </div>
 
@@ -50,7 +46,7 @@ export default async function Index() {
           alt="Background"
           className="w-full object-cover aspect-[3/1]"
         />
-        <div className="absolute inset-0 flex flex-col md:flex-row items-center justify-center md:space-x-8">
+        <div className="absolute inset-0 flex flex-col items-center justify-center md:flex-row md:space-x-8">
           <Link href="/directory">
             <Button className="bg-green-600 text-white text-md w-[240px]">
               Search Business Directory

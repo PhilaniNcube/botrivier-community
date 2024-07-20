@@ -1,18 +1,17 @@
-import ProjectCard from "../dashboard/projects/ProjectCard";
-import { cookies } from "next/headers";
-import type { Database } from "@/schema";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+
+
 import { getProjects } from "@/sanity/sanity-utils";
-import { Project } from "@/types/Project";
+
 import Image from 'next/image'
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { createClient } from "@/utils/supabase/server";
 
 export const dynamic = "force-dynamic";
 
 const page = async () => {
 
-      const supabase = createServerComponentClient<Database>({ cookies });
+      const supabase = createClient()
 
       const { data:projects, error } = await supabase
         .from("projects")

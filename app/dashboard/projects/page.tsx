@@ -1,15 +1,12 @@
 import { Button } from "@/components/ui/button";
-// import { getProjects } from "@/lib/fetchers/projects";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 import ProjectCard from "./ProjectCard";
-import type{ Database } from "@/schema";
-import { cookies } from "next/headers";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createClient } from "@/utils/supabase/server";
 
 const page = async () => {
 
-   const supabase = createServerComponentClient<Database>({ cookies });
+   const supabase = createClient()
 
    const { data, error } = await supabase
      .from("projects")

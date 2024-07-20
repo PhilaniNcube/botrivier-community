@@ -1,14 +1,12 @@
-import { cookies } from "next/headers";
+
 import CreateBusinessForm from "./CreateBusinessForm";
-// import { getBusinessTypes } from "@/lib/fetchers/directory";
-import type { Database } from "@/schema";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createClient } from "@/utils/supabase/server";
 
 export const dynamic = "force-dynamic";
 
 const page = async () => {
 
- const supabase = createServerComponentClient<Database>({ cookies });
+ const supabase = createClient();
 
  const { data, error } = await supabase
    .from("business_type")

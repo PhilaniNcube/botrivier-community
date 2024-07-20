@@ -1,48 +1,46 @@
 import Link from "next/link";
 import Image from "next/image";
 import { FacebookIcon } from "lucide-react";
-import { cookies } from "next/headers";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { Database } from "@/schema";
 import LogoutButton from "@/components/LogoutButton";
+import { createClient } from "@/utils/supabase/server";
 
 const Navbar = async () => {
 
-    const supabase = createServerComponentClient<Database>({ cookies });
+    const supabase = createClient()
 
     const {
       data: { user },
     } = await supabase.auth.getUser();
 
   return (
-    <nav className="flex mx-auto bg-green-600 text-white">
-      <div className="flex container items-center">
+    <nav className="flex mx-auto text-white bg-green-600">
+      <div className="container flex items-center">
         <Link href="/">
           <Image src="/images/logo.webp" width={96} height={66} alt="Logo" />
         </Link>{" "}
-        <div className="flex flex-1 justify-around items-center">
-          <Link href="/" className="text-md font-medium">
+        <div className="flex items-center justify-around flex-1">
+          <Link href="/" className="font-medium text-md">
             Home
           </Link>
-          <Link href="/directory" className="text-md font-medium">
+          <Link href="/directory" className="font-medium text-md">
             Directory
           </Link>
-          <Link href="/about" className="text-md font-medium">
+          <Link href="/about" className="font-medium text-md">
             Who is BCV
           </Link>
-          <Link href="/documents" className="text-md font-medium">
+          <Link href="/documents" className="font-medium text-md">
             BCV Documents
           </Link>
-          <Link href="/projects" className="text-md font-medium">
+          <Link href="/projects" className="font-medium text-md">
             Projects
           </Link>
-          <Link href="/events" className="text-md font-medium">
+          <Link href="/events" className="font-medium text-md">
             Events
           </Link>
-          <Link href="/newsletter" className="text-md font-medium">
+          <Link href="/newsletter" className="font-medium text-md">
             Newsletter
           </Link>
-          <Link href="/contact" className="text-md font-medium">
+          <Link href="/contact" className="font-medium text-md">
             Contact Us
           </Link>
         </div>
@@ -57,7 +55,7 @@ const Navbar = async () => {
           ) : (
             <Link
               href="/login"
-              className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
+              className="px-4 py-2 no-underline rounded-md bg-btn-background hover:bg-btn-background-hover"
             >
               Login
             </Link>

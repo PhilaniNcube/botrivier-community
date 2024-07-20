@@ -10,12 +10,10 @@ import { signInAction } from "@/lib/actions/sign-in-action";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/client";
 import Link from "next/link";
+import { resetPassword } from "@/lib/actions/reset-password-action";
 
 export default function Login() {
-
-  const [pending, startTransition] = useTransition();
-
-
+	const [pending, startTransition] = useTransition();
 
 	return (
 		<div className="flex flex-col items-center justify-center flex-1 w-full h-[80vh] gap-2 px-8 mx-auto sm:max-w-md">
@@ -23,11 +21,11 @@ export default function Login() {
 				className="flex flex-col justify-center flex-1 w-full gap-2 text-foreground"
 				action={(formData) => {
 					startTransition(() => {
-						signInAction(formData);
+						resetPassword(formData);
 					});
 				}}
 			>
-				<h1 className="text-2xl font-semibold text-foreground">Sign In</h1>
+				<h1 className="text-2xl font-semibold text-foreground">Reset Password</h1>
 				<div>
 					<Label htmlFor="email">Email</Label>
 					<Input type="email" id="email" name="email" />

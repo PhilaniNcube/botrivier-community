@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -12,10 +12,20 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import DashboardNav from "./DashboardNav";
 import { Separator } from "@/components/ui/separator";
+import { getCachedUser } from "@/lib/fetchers/user";
+import { redirect } from "next/navigation";
 
-const layout = ({children}:{children:ReactNode}) => {
+
+const layout = async ({children}:{children:ReactNode}) => {
+
+  const user = await getCachedUser();
+
+  if (!user) {
+    redirect('/login')  ;
+  }
+
   return (
-    <main className="py-10 container">
+    <main className="container py-10">
       <DashboardNav />
       <Separator className="my-2" />
       {children}

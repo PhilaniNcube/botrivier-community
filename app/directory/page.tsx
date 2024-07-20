@@ -1,9 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+
 import { Separator } from "@/components/ui/separator";
-import { Database } from "@/schema";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
 import Search from "./Search";
 import DirectoryGrid from "./DirectoryGrid";
 import { getDirectory } from "@/lib/fetchers/directory";
@@ -16,7 +12,7 @@ const page = async ({searchParams:{query = ''}}:{searchParams: {query:string}}) 
 
 
   return (
-    <main className="py-10 container">
+    <main className="container py-10">
       <h1 className="text-4xl font-semibold text-slate-800">
         Botrivier Business Directory
       </h1>

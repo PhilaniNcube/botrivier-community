@@ -17,7 +17,8 @@ import type { Database } from "@/schema";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+
+import { createClient } from "@/utils/supabase/client";
 
 type Props = {
   types: Database["public"]["Tables"]["business_directory"]["Row"][];
@@ -36,7 +37,7 @@ const formSchema = z.object({
 });
 
 const UpdateBusiness = ({ types, business, business_types }: Props) => {
-  const supabase = createClientComponentClient<Database>();
+  const supabase = createClient()
 
   const router = useRouter();
 

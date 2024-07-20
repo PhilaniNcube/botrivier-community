@@ -1,10 +1,10 @@
-import { Database } from "@/schema"
-import {  createServerComponentClient } from "@supabase/auth-helpers-nextjs"
-import { cookies } from "next/headers"
+
+import { createClient } from "@/utils/supabase/server"
+
 
 export const getBusinessTypes = async () => {
 
-   const supabase = createServerComponentClient<Database>({ cookies })
+   const supabase = createClient()
 
   const {data, error} = await supabase.from("business_type").select("*").order("title")
 
@@ -16,7 +16,7 @@ export const getBusinessTypes = async () => {
 }
 
 export const getBusinessDirectory = async () => {
- const supabase = createServerComponentClient<Database>({ cookies })
+ const supabase = createClient()
 
  const {data, error, count} = await supabase.from("directory").select("*", {count: 'exact'}).order("business_name", {ascending: true})
 
@@ -34,7 +34,7 @@ export const getBusinessDirectory = async () => {
 
 export const getDirectory = async (query = '') => {
 
-    const supabase = createServerComponentClient<Database>({ cookies })
+    const supabase = createClient()
 
      const { data, error } = await supabase
      .from("directory")
@@ -52,7 +52,7 @@ export const getDirectory = async (query = '') => {
 
 export const getBusinessTypesByBusinessID = async (businessId:string) => {
 
-   const supabase = createServerComponentClient<Database>({ cookies })
+   const supabase = createClient()
 
   const {data, error} = await supabase.from("business_directory").select("*, business_type(*)").eq('directory_id', businessId)
 
@@ -66,7 +66,7 @@ export const getBusinessTypesByBusinessID = async (businessId:string) => {
 
 export const getBusiness = async (businessId:string) => {
 
-   const supabase = createServerComponentClient<Database>({ cookies })
+   const supabase = createClient()
 
   const {data:business, error:businessError} = await supabase.from("directory").select("*").eq('id', businessId).single()
 
