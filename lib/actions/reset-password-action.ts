@@ -14,7 +14,7 @@ export async function resetPassword(formData: FormData) {
 
   const supabase = createClient();
 
-  const { data:{user}, error } = await supabase.auth.updateUser({ email, password });
+  const { data:{user}, error } = await supabase.auth.signInWithPassword({ email, password });
 
   console.log({ user, error });
 
