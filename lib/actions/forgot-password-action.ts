@@ -13,7 +13,9 @@ export async function forgotPasswordAction(formData:FormData) {
 
   const supabase = createClient();
 
-  const { error } = await supabase.auth.resetPasswordForEmail(email);
+  const { error } = await supabase.auth.signInWithOtp({
+    email,
+  });
 
   if (error) {
     redirect(`error?error=${error.message}`);
