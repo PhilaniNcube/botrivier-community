@@ -1,4 +1,5 @@
 "use client"
+
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
@@ -18,7 +19,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import type { Database } from "@/schema";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/client";
 
 
 type Props = {
@@ -61,7 +62,6 @@ const CreateBusinessForm = ({business_types}:Props) => {
 
       setLoading(true)
 
-      const url = process.env.NEXT_PUBLIC_SITE_URL
       console.log(values);
 
       const {data:business, error: businessError} = await supabase.from("directory").insert([{
