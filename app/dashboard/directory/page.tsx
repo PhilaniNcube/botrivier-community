@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import DirectoryTable from "./DirectoryTable";
 
-export const revalidate = 0
+export const dynamic = "force-dynamic";
 
 const page = async () => {
 
@@ -16,20 +16,20 @@ const directory = await getDirectory()
 
   return (
     <div className="w-full">
-      <div className="w-full flex justify-between">
+      <div className="flex justify-between w-full">
         <span>
-          <h1 className="font-semibold text-slate-700 text-2xl">
+          <h1 className="text-2xl font-semibold text-slate-700">
             Botrivier Business Directory
           </h1>
         </span>{" "}
         <Link href="/dashboard/directory/create">
-          <Button type="button" className="bg-green-600 text-white">
+          <Button type="button" className="text-white bg-green-600">
             <PlusIcon />
             Add New Business
           </Button>
         </Link>
       </div>
-      <div className="mt-6 w-full">
+      <div className="w-full mt-6">
         <DirectoryTable directory={directory} />
       </div>
     </div>

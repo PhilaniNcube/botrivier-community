@@ -1,10 +1,12 @@
 import ComingSoon from "@/components/ComingSoon";
 import { Button } from "@/components/ui/button";
-import { Database } from "@/schema";
+import type { Database } from "@/schema";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { DownloadIcon } from "lucide-react";
 import { cookies } from "next/headers";
 import Link from "next/link";
+
+export const dynamic = "force-dynamic";
 
 const page = async () => {
 
@@ -17,15 +19,15 @@ const page = async () => {
 
 
   return (
-    <main className="py-10 container">
-      <h1 className="text-2xl md:text-4xl text-center font-bold">BCV Documents</h1>
+    <main className="container py-10">
+      <h1 className="text-2xl font-bold text-center md:text-4xl">BCV Documents</h1>
       {/* <ComingSoon /> */}
-      <div className="flex flex-wrap w-full justify-center gap-4">
+      <div className="flex flex-wrap justify-center w-full gap-4">
         {documents?.map((document) => (
-          <article className="w-full max-w-xs flex flex-col items-center justify-center p-8 text-center" key={document.id}>
+          <article className="flex flex-col items-center justify-center w-full max-w-xs p-8 text-center" key={document.id}>
             <h3 className="text-xl font-bold">{document.title}</h3>
             <Link href={document.src}>
-              <Button type="button" className="flex items-center gap-x-3 bg-green-600">
+              <Button type="button" className="flex items-center bg-green-600 gap-x-3">
                 <DownloadIcon className="w-6 h-6" />
                 Download Document
               </Button>

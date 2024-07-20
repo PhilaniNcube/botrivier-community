@@ -1,12 +1,14 @@
 import ProjectCard from "../dashboard/projects/ProjectCard";
 import { cookies } from "next/headers";
-import { Database } from "@/schema";
+import type { Database } from "@/schema";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { getProjects } from "@/sanity/sanity-utils";
 import { Project } from "@/types/Project";
 import Image from 'next/image'
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+
+export const dynamic = "force-dynamic";
 
 const page = async () => {
 
@@ -22,7 +24,7 @@ const page = async () => {
      console.log(myProjects);
 
   return (
-    <main className="py-10 container">
+    <main className="container py-10">
       {/* {projects?.map((project) => (
       <ProjectCard key={project.id} project={project} />
     ))} */}
@@ -33,7 +35,7 @@ const page = async () => {
               src={project.images[0]}
               width={400}
               height={400}
-              className="w-full object-cover aspect-square"
+              className="object-cover w-full aspect-square"
               alt={project.name}
             />
             <div className="w-full mt-2">
@@ -45,7 +47,7 @@ const page = async () => {
                 Start Date: {project.start_date}
               </p>
               <Link href={`/projects/${project.slug}`}>
-                <Button type="button" className="bg-green-600 mt-4">View Project</Button>
+                <Button type="button" className="mt-4 bg-green-600">View Project</Button>
               </Link>
             </div>
           </article>

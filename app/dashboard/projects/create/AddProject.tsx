@@ -13,10 +13,10 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Database } from "@/schema";
+import type { Database } from "@/schema";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useRouter } from "next/navigation";
-import { ChangeEvent, useState } from "react";
+import { type ChangeEvent, useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import format from "date-fns/format";
@@ -68,6 +68,7 @@ const AddProject = () => {
       if (!file) return;
 
       const filename =
+        // biome-ignore lint/style/useTemplate: <explanation>
         slugify(file.name.split(".")[0], {
           lower: true,
         }) +
@@ -76,7 +77,7 @@ const AddProject = () => {
 
           const fileExtension = file.name.split(".").pop();
 
-          const uploadName = filename + "." + fileExtension;
+          const uploadName = `${filename}.${fileExtension}`;
 
            const { data, error } = await supabase.storage
              .from("projects")
@@ -84,7 +85,7 @@ const AddProject = () => {
 
              if (error) {
                 console.log(error);
-                alert("Upload failed" + error.message);
+                alert(`Upload failed - ${error.message}`);
                 setLoading(false);
                 return;
              }
@@ -111,7 +112,7 @@ const AddProject = () => {
 
       if (error) {
         console.log(error);
-        alert("Failed to save project" + error.message);
+        alert(`Failed to save project - ${error.message}`);
         setLoading(false);
         return;
       }
@@ -185,7 +186,7 @@ const AddProject = () => {
                       ) : (
                         <span>Pick a date</span>
                       )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      <CalendarIcon className="w-4 h-4 ml-auto opacity-50" />
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
@@ -193,7 +194,7 @@ const AddProject = () => {
                   <Calendar
                     mode="single"
                     selected={field.value}
-                    // @ts-expect-error
+
                     onSelect={field.onChange}
                     // disabled={(date) =>
                     //   date > new Date() || date < new Date("1900-01-01")

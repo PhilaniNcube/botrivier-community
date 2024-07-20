@@ -1,8 +1,10 @@
 import { cookies } from "next/headers";
 import CreateBusinessForm from "./CreateBusinessForm";
 // import { getBusinessTypes } from "@/lib/fetchers/directory";
-import { Database } from "@/schema";
+import type { Database } from "@/schema";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+
+export const dynamic = "force-dynamic";
 
 const page = async () => {
 
@@ -18,7 +20,9 @@ const page = async () => {
       <h1 className="text-2xl font-medium">
         Create a new business directory entry
       </h1>
-      <CreateBusinessForm business_types={data!} />
+      {data &&
+      <CreateBusinessForm business_types={data} />
+      }
     </div>
   );
 };

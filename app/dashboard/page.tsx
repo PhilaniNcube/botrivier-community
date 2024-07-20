@@ -1,6 +1,8 @@
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { getBusinessDirectory } from "@/lib/fetchers/directory";
 
+export const dynamic = "force-dynamic";
+
 const page = async () => {
 
   const {data, count} = await getBusinessDirectory()
