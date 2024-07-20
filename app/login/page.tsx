@@ -42,12 +42,20 @@ export default function Login() {
       email,
       password,
     })
-    router.push('/')
+
+    if (
+					email === "mark@tenderscan" ||
+					email === "ruthodigie@gmail.com" ||
+					email === "ncbphi001@gmail.com"
+				) {
+          router.push("/dashboard");
+        }
+					router.push("/");
     router.refresh()
   }
 
   return (
-    <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md items-center mx-auto h-screen justify-center gap-2">
+    <div className="flex flex-col items-center justify-center flex-1 w-full h-screen gap-2 px-8 mx-auto sm:max-w-md">
 
       {view === "check-email" ? (
         <p className="text-center text-foreground">
@@ -56,7 +64,7 @@ export default function Login() {
         </p>
       ) : (
         <form
-          className="flex-1 flex flex-col w-full justify-center gap-2 text-foreground"
+          className="flex flex-col justify-center flex-1 w-full gap-2 text-foreground"
           onSubmit={view === "sign-in" ? handleSignIn : handleSignUp}
         >
           {view === "sign-up" && (
@@ -65,7 +73,7 @@ export default function Login() {
                 First Name
               </Label>
               <Input
-                className="rounded-md px-4 py-2 bg-inherit border mb-6"
+                className="px-4 py-2 mb-6 border rounded-md bg-inherit"
                 type="text"
                 name="first_name"
                 onChange={(e) => setFirstName(e.target.value)}
@@ -76,7 +84,7 @@ export default function Login() {
                 Last Name
               </Label>
               <Input
-                className="rounded-md px-4 py-2 bg-inherit border mb-6"
+                className="px-4 py-2 mb-6 border rounded-md bg-inherit"
                 type="text"
                 name="last_name"
                 onChange={(e) => setLastName(e.target.value)}
@@ -90,7 +98,7 @@ export default function Login() {
             Email
           </Label>
           <Input
-            className="rounded-md px-4 py-2 bg-inherit border mb-6"
+            className="px-4 py-2 mb-6 border rounded-md bg-inherit"
             name="email"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
@@ -100,7 +108,7 @@ export default function Login() {
             Password
           </Label>
           <Input
-            className="rounded-md px-4 py-2 bg-inherit border mb-6"
+            className="px-4 py-2 mb-6 border rounded-md bg-inherit"
             type="password"
             name="password"
             onChange={(e) => setPassword(e.target.value)}
@@ -109,12 +117,13 @@ export default function Login() {
           />
           {view === "sign-in" && (
             <>
-              <button className="bg-green-700 rounded px-4 py-2 text-white mb-6">
+              <button type="button" className="px-4 py-2 mb-6 text-white bg-green-700 rounded">
                 Sign In
               </button>
               <p className="text-sm text-center">
                 Don't have an account?
                 <button
+                  type="button"
                   className="ml-1 underline"
                   onClick={() => setView("sign-up")}
                 >
@@ -125,12 +134,13 @@ export default function Login() {
           )}
           {view === "sign-up" && (
             <>
-              <button className="bg-green-700 rounded px-4 py-2 text-white mb-6">
+              <button type="button" className="px-4 py-2 mb-6 text-white bg-green-700 rounded">
                 Sign Up
               </button>
               <p className="text-sm text-center">
                 Already have an account?
                 <button
+                  type="button"
                   className="ml-1 underline"
                   onClick={() => setView("sign-in")}
                 >
