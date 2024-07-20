@@ -59,7 +59,7 @@ const UpdateBusiness = ({ types, business, business_types }: Props) => {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true);
 
-    const url = process.env.NEXT_PUBLIC_SITE_URL;
+
     console.log(values);
 
     const { data: businessUpdate, error: businessError } = await supabase
@@ -79,6 +79,17 @@ const UpdateBusiness = ({ types, business, business_types }: Props) => {
       alert("There was an error creating your business. Please try again.");
       setLoading(false);
       return;
+    }
+
+    //delete all business types for this business.id
+    const { error: deleteError } = await supabase
+      .from("business_directory")
+      .delete()
+      .eq("directory_id", business.id);
+
+    if (deleteError) {
+      alert("There was an error creating your business. Please try again.");
+      setLoading(false);
     }
 
     const { data: businessType, error } = await supabase
@@ -105,7 +116,7 @@ const UpdateBusiness = ({ types, business, business_types }: Props) => {
     <div className="w-full">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="w-xl">
-          <div className="w-full grid grid-cols-2 gap-3">
+          <div className="grid w-full grid-cols-2 gap-3">
             <FormField
               control={form.control}
               name="business_name"
@@ -135,7 +146,7 @@ const UpdateBusiness = ({ types, business, business_types }: Props) => {
               )}
             />
           </div>
-          <div className="w-full grid grid-cols-2 gap-3 mt-4">
+          <div className="grid w-full grid-cols-2 gap-3 mt-4">
             <FormField
               control={form.control}
               name="first_name"
@@ -165,7 +176,7 @@ const UpdateBusiness = ({ types, business, business_types }: Props) => {
               )}
             />
           </div>
-          <div className="w-full grid grid-cols-2 gap-3 mt-4">
+          <div className="grid w-full grid-cols-2 gap-3 mt-4">
             <FormField
               control={form.control}
               name="email"
@@ -206,7 +217,7 @@ const UpdateBusiness = ({ types, business, business_types }: Props) => {
                     <FormLabel className="text-base">Business Type</FormLabel>
                     <FormDescription>Select the business types</FormDescription>
                   </div>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
                     {" "}
                     {business_types?.map((item) => (
                       <FormField

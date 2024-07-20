@@ -15,6 +15,22 @@ export const getBusinessTypes = async () => {
   return data
 }
 
+export const getBusinessDirectory = async () => {
+ const supabase = createServerComponentClient<Database>({ cookies })
+
+ const {data, error, count} = await supabase.from("directory").select("*", {count: 'exact'}).order("business_name", {ascending: true})
+
+  if (error) {
+    throw new Error(error.message)
+  }
+
+  return {
+    data,
+    count
+  }
+
+}
+
 
 export const getDirectory = async (query = '') => {
 
