@@ -9,7 +9,7 @@ export async function resetPassword(formData: FormData) {
   const password = formData.get("password") as string;
 
   if (!email || !password) {
-    redirect("/error");
+    redirect("/error?error=Email and password are required");
   }
 
   const supabase = createClient();
@@ -31,10 +31,10 @@ export async function resetPassword(formData: FormData) {
 			) {
 				console.log("redirecting to admin dashboard");
 				revalidatePath("/", "layout");
+        revalidatePath("/dashboard", "layout");
 				redirect("/dashboard");
 			}
 
   }
-	revalidatePath("/", "layout");
-  redirect("/");
+
 }

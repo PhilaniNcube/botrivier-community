@@ -10,6 +10,10 @@ export async function signInAction(formData:FormData) {
 		const email = formData.get("email") as string;
 		const password = formData.get("password") as string;
 
+    if(!email || !password) {
+      redirect("/error?error=Email and password are required");
+    }
+
 		const {data: {user}, error} = await supabase.auth.signInWithPassword({
 			email,
 			password,
@@ -17,8 +21,12 @@ export async function signInAction(formData:FormData) {
 
     console.log({user, error});
 
-    if (error || !user ) {
-     redirect("/error");
+    if (error ) {
+     redirect(`/error?error=${error.message}`);
+    }
+
+    if(!user) {
+      redirect("/error?error=Invalid credentials");
     }
 
 		if (
@@ -28,7 +36,7 @@ export async function signInAction(formData:FormData) {
 		) {
       console.log("redirecting to admin dashboard");
       revalidatePath("/", "layout");
-			redirect("/dashboard");
+			redirect("/");
 		}
 
 }

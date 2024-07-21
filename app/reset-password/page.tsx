@@ -31,7 +31,7 @@ export default function Login() {
 					<Input type="email" id="email" name="email" />
 				</div>
 				<div className="my-2">
-					<Label htmlFor="password">Password</Label>
+					<Label htmlFor="password">New Password</Label>
 					<Input type="password" id="password" name="password" />
 				</div>
 				<div>
