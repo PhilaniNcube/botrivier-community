@@ -40,6 +40,15 @@ export async function updateSession(request: NextRequest) {
 		data: { user },
 	} = await supabase.auth.getUser();
 
+  const requestUrl = new URL(request.url);
+	const code = requestUrl.searchParams.get("code");
+	const origin = requestUrl.origin;
+
+  if (code) {
+
+			await supabase.auth.exchangeCodeForSession(code);
+		}
+
 
 
 	// IMPORTANT: You *must* return the supabaseResponse object as it is. If you're
